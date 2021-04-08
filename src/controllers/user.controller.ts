@@ -38,7 +38,7 @@ export async function registerUser(req: any, res: any) {
 
   let newUser = await User.create({
     username,
-    password: await hash(password),
+    password,
   });
   return res.send(newUser);
 }

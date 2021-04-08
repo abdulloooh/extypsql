@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerUser = exports.getUser = void 0;
-const argon2_1 = require("argon2");
 const models_1 = __importDefault(require("../models"));
 const errors_1 = require("../utils/errors");
 const User = models_1.default.user;
@@ -40,7 +39,7 @@ async function registerUser(req, res) {
     }
     let newUser = await User.create({
         username,
-        password: await argon2_1.hash(password),
+        password,
     });
     return res.send(newUser);
 }

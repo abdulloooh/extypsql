@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
                 return await argon2_1.verify(password, this.password);
             },
         },
+        hooks: {
+            beforeCreate: async (user) => {
+                user.password = await argon2_1.hash(user.password);
+            },
+        },
         timestamps: true,
         freezeTableName: true,
     });

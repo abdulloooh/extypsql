@@ -1,4 +1,5 @@
 import { hash, verify } from "argon2";
+import type { CreateUser } from "../config/interfaces";
 
 module.exports = (sequelize: any, DataTypes: any) => {
   const User = sequelize.define(
@@ -28,6 +29,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         validPassword: async function (password: string) {
           // @ts-ignore
           return await verify(password, this.password);
+        },
+      },
+      hooks: {
+        beforeCreate: async (user: CreateUser) => {
+          user.password = await hash(user.password);
         },
       },
       timestamps: true,

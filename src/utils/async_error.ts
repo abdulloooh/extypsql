@@ -1,5 +1,5 @@
 export default function (err: any, req: any, res: any) {
-  console.log(err);
+  console.log(err.stack, err.message);
 
   res.status(err.status || 500).send({
     success: false,

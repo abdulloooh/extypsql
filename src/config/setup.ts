@@ -1,16 +1,23 @@
 import "dotenv/config";
 import cors from "cors";
+import morgan from "morgan";
 import helmet from "helmet";
+import express from "express";
 import compression from "compression";
+import cookieParser from "cookie-parser";
 
+import db from "../models";
 import routes from "../routes/index";
 import errorHandler from "../utils/uncaught_error";
-import asyncEerrorHandler from "../utils/async_error";
 
 export default function (app: any) {
-  app.use(helmet);
-  app.use(compression);
   errorHandler();
+  app.use(helmet());
+  app.use(compression());
+  app.use(morgan("dev"));
+  app.use(cookieParser());
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 
   app.use(
     cors({
@@ -19,13 +26,16 @@ export default function (app: any) {
     })
   );
 
+  db.rest
+    .authenticate()
+    .then(() => console.log("database connected"))
+    .catch((err: any) => console.log(err.message));
+
   if (!process.env.JWT) {
     throw new Error("FATAL ERROR: jwtPrivateToken key not found");
   }
 
   routes(app);
-
-  app.use(asyncEerrorHandler);
 }
 
 // const passport = require("passport");

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("./user"));
-const async_error_1 = __importDefault(require("../utils/async_error"));
+const async_error_1 = __importDefault(require("../middlewares/async_error"));
 function default_1(app) {
     app.get("/api", (req, res) => {
         res.send("Hi there, welcome to this API");

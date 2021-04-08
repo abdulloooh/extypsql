@@ -12,7 +12,7 @@ const compression_1 = __importDefault(require("compression"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const models_1 = __importDefault(require("../models"));
 const index_1 = __importDefault(require("../routes/index"));
-const uncaught_error_1 = __importDefault(require("../utils/uncaught_error"));
+const uncaught_error_1 = __importDefault(require("../middlewares/uncaught_error"));
 function default_1(app) {
     uncaught_error_1.default();
     app.use(helmet_1.default());

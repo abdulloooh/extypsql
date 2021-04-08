@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 
 import db from "../models";
 import routes from "../routes/index";
-import errorHandler from "../utils/uncaught_error";
+import errorHandler from "../middlewares/uncaught_error";
 
 export default function (app: any) {
   errorHandler();

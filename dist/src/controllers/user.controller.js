@@ -8,10 +8,20 @@ const argon2_1 = require("argon2");
 const models_1 = __importDefault(require("../models"));
 const errors_1 = require("../utils/errors");
 const User = models_1.default.user;
+/**
+ * @desc Get single user
+ * @route GET /api/users/me
+ * @access Public
+ */
 async function getUser(req, res) {
     res.send("working...");
 }
 exports.getUser = getUser;
+/**
+ * @desc Register
+ * @route POST /api/users/register
+ * @access Public
+ */
 async function registerUser(req, res) {
     const { username, password } = req.body;
     if (!username || !password)

@@ -1,5 +1,5 @@
 import userRouter from "./user";
-import asyncEerrorHandler from "../utils/async_error";
+import asyncEerrorHandler from "../middlewares/async_error";
 
 export default function (app: any) {
   app.get("/api", (req: any, res: any) => {

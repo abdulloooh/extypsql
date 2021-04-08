@@ -1,3 +1,4 @@
+import "express-async-errors";
 export default function (err: any, req: any, res: any) {
   console.log(err.stack, err.message);
 

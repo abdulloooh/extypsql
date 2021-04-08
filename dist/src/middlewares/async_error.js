@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require("express-async-errors");
 function default_1(err, req, res) {
     console.log(err.stack, err.message);
     res.status(err.status || 500).send({

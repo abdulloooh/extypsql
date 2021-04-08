@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const argon2_1 = require("argon2");
-const user = (sequelize, Sequelize, DataTypes) => {
-    const User = Sequelize.define("user", {
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define("user", {
         id: {
             type: DataTypes.UUID,
-            defaultValue: Sequelize.UUIDV4,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         username: {
@@ -18,16 +18,19 @@ const user = (sequelize, Sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
+        instanceMethods: {
+            generateHash: async function (password) {
+                return await argon2_1.hash(password);
+            },
+            // @ts-ignore
+            validPassword: async function (password) {
+                // @ts-ignore
+                return await argon2_1.verify(password, this.password);
+            },
+        },
         timestamps: true,
         freezeTableName: true,
     });
-    User.generateHash = async function (password) {
-        return await argon2_1.hash(password);
-    };
-    User.validPassword = async function (password) {
-        return await argon2_1.verify(password, this.password);
-    };
     User.sync();
     return User;
 };
-exports.default = user;

@@ -26,7 +26,7 @@ export default function (app: any) {
     })
   );
 
-  db.rest
+  db.sequelize
     .authenticate()
     .then(() => console.log("database connected"))
     .catch((err: any) => console.log(err.message));

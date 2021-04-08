@@ -7,7 +7,7 @@ exports.registerUser = exports.getUser = void 0;
 const argon2_1 = require("argon2");
 const models_1 = __importDefault(require("../models"));
 const errors_1 = require("../utils/errors");
-const User = models_1.default.rest.models.user;
+const User = models_1.default.user;
 async function getUser(req, res) {
     res.send("working...");
 }

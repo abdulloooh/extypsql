@@ -2,8 +2,7 @@ import { hash } from "argon2";
 import db from "../models";
 import { _400 } from "../utils/errors";
 
-const User = db.rest.models.user;
-
+const User = db.user;
 interface User {
   id?: string;
   username: string;

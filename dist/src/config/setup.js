@@ -25,7 +25,7 @@ function default_1(app) {
         origin: [process.env.CLIENT],
         credentials: true,
     }));
-    models_1.default.rest
+    models_1.default.sequelize
         .authenticate()
         .then(() => console.log("database connected"))
         .catch((err) => console.log(err.message));

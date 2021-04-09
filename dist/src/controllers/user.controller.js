@@ -37,10 +37,10 @@ async function registerUser(req, res) {
     if (usernameExists) {
         return errors_1._400(res, "An account with that username already exists!");
     }
-    let newUser = await User.create({
+    let user = await User.create({
         username,
         password,
     });
-    return res.send(newUser);
+    return res.send(user.transformEntity());
 }
 exports.registerUser = registerUser;

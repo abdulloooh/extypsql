@@ -1,6 +1,8 @@
+import _ from "lodash";
 import { hash, verify } from "argon2";
 import type { CreateUser } from "../config/interfaces";
 
+const public_fileds = ["username", "password"];
 module.exports = (sequelize: any, DataTypes: any) => {
   const User = sequelize.define(
     "user",
@@ -25,10 +27,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
         generateHash: async function (password: string) {
           return await hash(password);
         },
-        // @ts-ignore
         validPassword: async function (password: string) {
-          // @ts-ignore
-          return await verify(password, this.password);
+          const _this: any = this;
+          return await verify(password, _this.password);
+        },
+        transformEntity: function () {
+          return _.pick(this, public_fileds);
         },
       },
       hooks: {

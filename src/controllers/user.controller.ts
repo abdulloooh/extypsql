@@ -36,9 +36,9 @@ export async function registerUser(req: any, res: any) {
     return _400(res, "An account with that username already exists!");
   }
 
-  let newUser = await User.create({
+  let user = await User.create({
     username,
     password,
   });
-  return res.send(newUser);
+  return res.send(user.transformEntity());
 }

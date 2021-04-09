@@ -1,6 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = __importDefault(require("lodash"));
 const argon2_1 = require("argon2");
+const public_fileds = ["username", "password"];
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
         id: {
@@ -22,10 +27,12 @@ module.exports = (sequelize, DataTypes) => {
             generateHash: async function (password) {
                 return await argon2_1.hash(password);
             },
-            // @ts-ignore
             validPassword: async function (password) {
-                // @ts-ignore
-                return await argon2_1.verify(password, this.password);
+                const _this = this;
+                return await argon2_1.verify(password, _this.password);
+            },
+            transformEntity: function () {
+                return lodash_1.default.pick(this, public_fileds);
             },
         },
         hooks: {

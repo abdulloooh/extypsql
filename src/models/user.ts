@@ -27,9 +27,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         generateHash: async function (password: string) {
           return await hash(password);
         },
-        validPassword: async function (password: string) {
-          const _this: any = this;
-          return await verify(password, _this.password);
+        //@ts-expect-error
+        isValidPass: async function (password: string) {
+          //@ts-expect-error
+          return await verify(password, this.password);
         },
         transformEntity: function () {
           return _.pick(this, public_fileds);

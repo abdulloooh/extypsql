@@ -1,4 +1,5 @@
 import userRouter from "./user";
+import authRouter from "./auth";
 import asyncEerrorHandler from "../middlewares/async_error";
 
 export default function (app: any) {
@@ -7,6 +8,8 @@ export default function (app: any) {
   });
 
   app.use("/api/users", userRouter);
+
+  app.use("/api/auth", authRouter);
 
   app.use(asyncEerrorHandler);
 }
